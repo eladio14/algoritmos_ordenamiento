@@ -1,4 +1,5 @@
 from funciones import Funciones
+import time
 
 data = Funciones.obtener_data()
 
@@ -7,11 +8,21 @@ def login():
     nombre = input('Introduzca el Nombre de Usuario: ')
     contraseña = input('Introduzca su Contraseña: ')
 
-    if nombre == 'admin' and contraseña == 'admin':
+    if (nombre == 'admin' and contraseña == 'admin'):
         menu_principal()
-        return
+        return 
+    if (nombre in data["usuarios"].keys()):
+        if (data["usuarios"][nombre]):
+            menu_principal()
+            return
+        else:
+            print('Acceso denegado')
+            time.sleep(1)
+            login()
+            return
     else:
         print('Acceso denegado')
+        time.sleep(1)
         login()
         return
 
@@ -21,7 +32,10 @@ def menu_principal():
     print('1. Crear Usuario')
     print('2. Gestión de Ficheros y Carpetas')
     print('3. Resetear Datos')
-    print('4. Salir')
+    print('4. Crear Fichero')
+    print('5. Crear Carpeta')
+    print('6. Crear Unidad de Almacenamiento')
+    print('7. Salir')
     
     opcion = int(input())
 
@@ -29,7 +43,13 @@ def menu_principal():
         menu_crear_usuario()
     elif opcion == 2:
         menu_gestion_ficheros()
-    elif opcion == 3:
+    elif opcion == 4:
+        menu_crear_fichero()
+    elif opcion == 5:
+        menu_crear_carpeta()
+    elif opcion == 6:
+        menu_crear_unidad()
+    elif opcion == 7:
         exit()
     
 def menu_crear_usuario():
@@ -72,9 +92,19 @@ def menu_gestion_ficheros():
 
     opcion = int(input())
 
-    if opcion == 6:
+    if opcion == 2:
+        mergesort()
+    elif opcion == 6:
         menu_principal()
 
+def menu_crear_fichero():
+    ID = 0
+
+def menu_crear_carpeta():
+    pass
+
+def menu_crear_unidad():
+    pass
 
 if __name__ == '__main__':
     login()
